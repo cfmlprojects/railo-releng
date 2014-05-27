@@ -13,3 +13,4 @@
 /build/buildinfo.properties
 /build/mvnkey.key
 /build/deploy.key
+/build/ecj-classpath.txt
