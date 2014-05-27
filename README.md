@@ -1,5 +1,14 @@
 #USAGE
 
+Download the zipball and run the batch or sh script.  Select "build" in the menu.
+
+Or from the command line:
+
+./railo-releng build
+
+This will download cfdistro to your home directory.  The build aritfacts will be 
+stored in "${user.home}/cfdistro/artifacts" by default.
+
 ##BUILDING
 
 Some notes about building:
@@ -8,7 +17,8 @@ Some notes about building:
 	Subsequent builds are fast as fast can be ish!  If you know your system has
 	git installed, the argument "use.jgit=false" will speed the clone up.
 	
-	You can specify the Git repo to pull from by editing the build/src.xml file.
+	You can specify the Git repo to pull from by editing the build/src.xml file
+	or passing it on the commandline (sc.railo.uri=http://myrepo/dot.git).
 	
 	As the Railo repo is imported into the ./src directory, any git operations
 	for the sources should be done there.
@@ -25,11 +35,11 @@ Some notes about building:
 	ex: set JAVA_HOME=C:\Program Files\Java\jre6
 	
 	Using the "branch" or "commit" build options will do a *forced* checkout of
-	the corresponding sources.  If you have any changes, you sure as hell have
-	better committed them prior!  Only non-commited stuff will be dissapeared.
+	the corresponding sources.  If you have any changes, be sure to commit them
+	(preferably to a different branch) them prior!
 	
 	Running a plain "build", without the branch or commit options, will only run
-	the build on the current sources.  Non-committed stuff is safe.
+	the build on the current sources.  Modified non-committed stuff is safe.
 	
 	The sources are compiled with the Eclipse ECJ compiler, so no JDK is needed.
 	
@@ -54,21 +64,11 @@ Build a random commit
  
  ./railo-build build commit=81a8897d1b9e273f8de819eb56a13d7bcf5d51cf
 
+## MAVEN TEMPLATES
 
-##EXPRESS VERSION
+Maven templates for the POMs (including jetty, heroku, etc.) are here:
 
- to build the coolest version of express, do 
- 
- ./railo-build Railo.express
- 
- To build the "normal" version of express, do
-
- ./railo-build Railo.express.jetty
-
- To build the winstone version of express, do
-
- ./railo-build Railo.express.winstone
-
+	./build/resource/maven/
 
 ##TESTING
 
@@ -117,8 +117,30 @@ Editing JMeter tests:
 do yer editing or whatever, then
  ./railo-releng server.stop
 
-##PACKAGING
+#PACKAGING
 
 ##WAR
 	A WAR file is generated as part of the standard build, as is the railo.jar,
 	and core.rc file.
+
+
+##EXPRESS VERSION
+
+ to build the coolest version of express, do 
+ 
+ ./railo-build Railo.express
+ 
+ To build the "normal" version of express, do
+
+ ./railo-build Railo.express.jetty
+
+ To build the winstone version of express, do
+
+ ./railo-build Railo.express.winstone
+
+
+##MINI VERSION
+
+This build is bare -- no ORM, no PDF stuff, nada. -- and thus small:
+
+ ./railo-build Railo.mini
