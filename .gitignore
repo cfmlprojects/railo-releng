@@ -1,0 +1,15 @@
+/wiki
+/src
+/jre
+/dist
+/CFML-Installers
+.DS_Store
+.svn
+/build/cache.properties
+/build/temp
+/build/scm.cache
+/build/jmeter-*
+/build/rc-gen
+/build/buildinfo.properties
+/build/mvnkey.key
+/build/deploy.key
