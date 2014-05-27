@@ -17,8 +17,8 @@ Some notes about building:
 	Subsequent builds are fast as fast can be ish!  If you know your system has
 	git installed, the argument "use.jgit=false" will speed the clone up.
 	
-	You can specify the Git repo to pull from by editing the build/src.xml file
-	or passing it on the commandline (sc.railo.uri=http://myrepo/dot.git).
+	You can specify the Git repo to pull from by editing build/build.properties
+	or passing it on the command line (sc.railo.uri=http://myrepo/dot.git).
 	
 	As the Railo repo is imported into the ./src directory, any git operations
 	for the sources should be done there.
