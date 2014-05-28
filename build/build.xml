@@ -99,6 +99,9 @@
 		</antcontrib:if>
 	</target>
 
+	<target name="build.all.mvn" depends="build.all, mvn.deploy.all">
+	</target>
+
 	<target name="build.all" depends="build.main">
 		<mkdir dir="${railobuild.dist.dir}/war"/>
 		<mkdir dir="${railobuild.dist.dir}/rc"/>
