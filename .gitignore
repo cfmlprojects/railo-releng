@@ -14,3 +14,4 @@
 /build/mvnkey.key
 /build/deploy.key
 /build/ecj-classpath.txt
+/build/requires.txt

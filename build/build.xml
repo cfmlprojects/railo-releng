@@ -102,7 +102,7 @@
 	<target name="build.all.mvn" depends="build.all, mvn.deploy.all">
 	</target>
 
-	<target name="build.all" depends="build.main">
+	<target name="build.all" depends="build">
 		<mkdir dir="${railobuild.dist.dir}/war"/>
 		<mkdir dir="${railobuild.dist.dir}/rc"/>
 		<mkdir dir="${railobuild.dist.dir}/express"/>
