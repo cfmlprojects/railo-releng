@@ -3,7 +3,12 @@ reldir=`dirname $0`
 cd $reldir/build
 ANTCMD="/bin/sh $HOME/cfdistro/ant/bin/ant -nouserlib -f build.xml"
 export ANT_HOME=$HOME/cfdistro/ant
-CFDISTRO_ZIP=$HOME/cfdistro/cfdistro.zip
+CFDISTRO_HOME=$HOME/cfdistro
+CFDISTRO_ZIP=$CFDISTRO_HOME/cfdistro.zip
+if [ ! -d "$CFDISTRO_HOME" -a -d "/opt/cfdistro/" ]; then
+        export CFDISTRO_HOME=/opt/cfdistro
+        ANTCMD="/bin/sh /opt/cfdistro/ant/bin/ant -nouserlib -f build.xml"
+fi
 if [ "$HTTP_CLIENT" = "" ]; then
     if type -p curl >/dev/null 2>&1; then
         if [ "$https_proxy" != "" ]; then
@@ -13,10 +18,6 @@ if [ "$HTTP_CLIENT" = "" ]; then
     else
         HTTP_CLIENT="wget -O"
     fi
-fi
-if [ ! -d "$ANT_HOME" ]; then
-        export ANT_HOME=/opt/cfdistro/ant
-        ANTCMD="/bin/sh /opt/cfdistro/ant/bin/ant -nouserlib -f build.xml"
 fi
 if [ ! -d "$ANT_HOME" ]; then
     if [ -r "$CFDISTRO_ZIP" ]; then
