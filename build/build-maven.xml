@@ -28,6 +28,17 @@
   	<property name="mvn.remote.repo" 
    		value="http://127.0.0.1:8081/nexus/content/repositories/railo-${mvn.type}s/" />
 
+    <target name="mvn.deploy.railoconfig" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+		<set-build-info />
+		<!-- wrap all the libs up into one dependency -->
+		<zip destfile="${temp.dir}/railo-config.zip" update="true">
+			<fileset dir="${build-core.src.dir}/resource/config/" includes="server.xml, web.xml" />
+		</zip>
+		<pom-and-deploy pomid="railoconfig.pom" artifact="${temp.dir}/railo-config.zip" packaging="zip" buildtype="${mvn.type}"
+		 groupId="org.getrailo" artifactId="railo.config" version="${railo.build.version.long}" name="railo.config" />
+		<delete file="${temp.dir}/railo-config.zip" />
+    </target>
+    	
     <target name="mvn.deploy.libs" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 		<set-build-info />
 		<!-- wrap all the libs up into one dependency -->
@@ -129,7 +140,7 @@
     	<delete file="${basedir}/build-mvnlibs.xml"/>
 	</target>
 
-    <target name="mvn.deploy.all" depends="mvn.deploy.libs,mvn.deploy.libs.min,mvn.deploy.core" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+    <target name="mvn.deploy.all" depends="mvn.deploy.libs,mvn.deploy.libs.min,mvn.deploy.core,mvn.deploy.railoconfig" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 		<pom-and-deploy pomid="railo.war.pom" packaging="war" artifact="${railobuild.dist.dir}/war/railo-${railo.build.version.long}.war" buildtype="${mvn.type}"
 		 groupId="org.getrailo" artifactId="railo.war" version="${railo.build.version.long}" name="railo.war"/>
 
