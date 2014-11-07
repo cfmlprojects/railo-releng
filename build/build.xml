@@ -18,7 +18,6 @@
 	<loadproperties srcfile="build.properties"/>
 	<echo message="${todays.date}"/>
 
-	<property name="railo.build.bump" value="" description="one of [major|minor|build|revision] or empty to not bump number." />
 	<property name="railo.javac.compiler" value="1.6"/>
 	<property name="railobuild.dist.dir" value="../dist"/>
 
@@ -138,6 +137,7 @@
 	</target>
 
 	<target name="build.main" depends="init">
+        <delete file="${temp.dir}/railo.version.info" verbose="true"/>
 		<antcontrib:runtarget target="scminfo"/>
 		<mkdir dir="${railobuild.dist.dir}"/>
 		<mkdir dir="${railobuild.dist.dir}/jar"/>
@@ -240,8 +240,19 @@ ${git.results}</echo>
 	
 	<macrodef name="set-build-info">
 		<sequential>
-			<property file="${src.dir}/railo-java/railo-core/src/railo/runtime/Info.ini" prefix="railo.build"/>
-			<version-splitter property="railo.build.version" version="${railo.build.number}" bump="${railo.build.bump}"/>
+            <property name="railo.build.bump" value="" description="one of [major|minor|build|revision] or empty to not bump number." />
+            <antcontrib:if description="if bumping, ensure we only bump once during build (temp file deleted at the top)">
+                <available file="${temp.dir}/railo.version.info"/>
+                <then>
+        			<property file="${build-core.build.dir}/classes/railo/runtime/Info.ini" prefix="railo.build"/>
+        			<version-splitter property="railo.build.version" version="${railo.build.number}" bump=""/>
+                </then>
+                <else>
+        			<property file="${src.dir}/railo-java/railo-core/src/railo/runtime/Info.ini" prefix="railo.build"/>
+        			<version-splitter property="railo.build.version" version="${railo.build.number}" bump="${railo.build.bump}"/>
+        			<echo file="${temp.dir}/railo.version.info" message="${railo.build.version.long}"/>
+                </else>
+            </antcontrib:if>
 			<mkdir dir="${build-core.build.dir}/classes/railo/runtime/" />
 			<antcontrib:if>
 				<equals arg1="${build.type}" arg2="release" />

@@ -16,7 +16,7 @@
          ================================= -->
     <target name="RailoCore.getInfo" description="Clears the build and dist directories.">
 		<echo message="Extracting version information from file src/railo/runtime/Info.ini" />
-    	<loadfile property="build-core.core.version" srcFile="${build-core.dir}/src/railo/runtime/Info.ini">
+    	<loadfile property="build-core.core.version" srcFile="${build-core.build.dir}/classes/railo/runtime/Info.ini">
 			<filterchain>
 				<linecontainsregexp>
 					<regexp pattern="number=[0-4]+.[0-9]+.[0-9]+.[0-9]+"/>
